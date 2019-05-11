@@ -1,0 +1,59 @@
+version: '3.3'
+services:
+
+  elasticsearch:
+    image: elasticsearch:7.0.0
+    container_name: elasticsearch
+    environment:
+      - "bootstrap.memory_lock=true"
+      - "http.cors.enabled=true"
+      - "http.cors.allow-origin=*"
+      - "network.host=0.0.0.0"
+      - "discovery.type=single-node"
+      - "xpack.monitoring.collection.enabled=true"
+      - "xpack.ml.enabled=false"  
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - /esdata:/usr/share/elasticsearch/data
+    networks:
+      - elk
+    ports:
+      - "9200:9200"
+
+  logstash:
+    image: logstash:7.0.0
+    container_name: logstash
+    environment:
+      - "xpack.monitoring.enabled=true"
+      - "xpack.monitoring.elasticsearch.hosts=http://elasticsearch:9200"
+    volumes:
+      - /root/docker-elk/assets/logstash/pipeline/:/usr/share/logstash/pipeline/
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - elk
+    ports:
+      - "5044:5044"
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    image: kibana:7.0.0
+    container_name: kibana
+    environment:
+      SERVER_NAME: kibana
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    networks:
+      - elk
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+
+networks:
+  elk:

@@ -42,3 +42,7 @@ If you have a remote server, then use a SSH tunnel to connect back to the Logsta
 - Copy your id to the Logstash server: `ssh-copy-id filebeat@<your-logstash-container-host>`
 - From the remote host (server running filebeat): `ssh -L 5044:127.0.0.1:5044 filebeat@<your-logstash-container-host> -p 22 &`
 - Now configure filebeat to log to localhost:5044
+*** doesn't work properly *** Keeping for reference
+
+#### Setup Logstash authentication with Filebeat
+https://benjaminknofe.com/blog/2018/07/08/logstash-authentication-with-ssl-certificates/

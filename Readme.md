@@ -15,7 +15,7 @@ This project uses docker compose to create 3 containers; elasticsearch, logstash
 4. Start with `docker-compose up -d`
 
 ### docker-opendistro-elk
-This project uses docker compose to create 4 containers; two elasticsearch nodes, one logstash and one kibana. This is a development setup.
+This project uses docker compose to create 4 containers; two elasticsearch nodes, one logstash and one kibana. This is a development setup that builds on the Amazon Open Distro project.
 
 1. Clone the directory
 2. Start with `docker-compose up -d`

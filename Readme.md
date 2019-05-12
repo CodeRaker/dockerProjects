@@ -19,4 +19,4 @@ This project uses docker compose to create 4 containers; two elasticsearch nodes
 
 1. Clone the directory
 2. Start with `docker-compose up -d`
-3. To change the Kibana logo, use the sample Hugin logo, or create your own and upload: `docker cp assets/open_distro_for_elasticsearch_logo_h.svg <container-id>:/usr/share/kibana/plugins/opendistro_security/public/assets/open_distro_for_elasticsearch_logo_h.svg`
+3. To change the Open Distro login graphics, use the sample Hugin logo, or create your own and upload: `docker cp assets/open_distro_for_elasticsearch_logo_h.svg <container-id>:/usr/share/kibana/plugins/opendistro_security/public/assets/open_distro_for_elasticsearch_logo_h.svg`

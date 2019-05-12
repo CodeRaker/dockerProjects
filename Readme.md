@@ -35,3 +35,7 @@ Customize Filebeat and start service:
 vi /etc/filebeat/filebeat.yml
 systemctl start filebeat
 ```
+
+If you have a remote server, then use a SSH tunnel to connect back to the Logstash container. This assumes you have created a user called `filebeat` on the server with the Logstash container:
+- Copy your id to the Logstash server: `ssh-copy-id filebeat@<your-logstash-container-host>`
+- From the remote host (server running filebeat): `ssh -L 5044:127.0.0.1:5044 filebeat@<your-logstash-container-host> -p 22 &`

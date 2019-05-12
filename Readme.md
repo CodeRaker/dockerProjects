@@ -27,6 +27,10 @@ apt-get install apt-transport-https
 echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list
 apt-get update
 apt install filebeat
-vi /etc/filebeat/filebeat.yml (customize filebeat configuration)
+```
+
+Customize Filebeat and start service:
+```
+vi /etc/filebeat/filebeat.yml
 systemctl start filebeat
 ```

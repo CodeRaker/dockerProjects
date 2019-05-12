@@ -1,12 +1,12 @@
 # Instructions
 
-### docker-website-template
+## docker-website-template
 This project uses docker compose to create 3 containers; apache-php, mysql and phpmyadmin. It's meant to spawn a development environment, but can probably be modded, to create something more production ready.
 
 1. Clone the directory
 2. Start with `docker-compose up --build`
 
-### docker-elk
+## docker-elk
 This project uses docker compose to create 3 containers; elasticsearch, logstash and kibana. This is a development setup.
 
 1. Clone the directory
@@ -14,13 +14,15 @@ This project uses docker compose to create 3 containers; elasticsearch, logstash
 3. Create the data directory `mkdir /esdata && chown elasticsearch:elasticsearch /esdata` (you can omit this, if you want to run non-persistent, but you must comment out the volume lines in the docker-compose.yml file, under the elasticsearch container).  
 4. Start with `docker-compose up -d`
 
-### docker-opendistro-elk
+## docker-opendistro-elk
 This project uses docker compose to create 4 containers; two elasticsearch nodes, one logstash and one kibana. This is a development setup that builds on the Amazon Open Distro project.
 
+#### Install containers
 1. Clone the directory
 2. Start with `docker-compose up -d`
 3. To change the Open Distro login graphics, use the sample Hugin logo, or create your own and upload: `docker cp assets/open_distro_for_elasticsearch_logo_h.svg <container-id>:/usr/share/kibana/plugins/opendistro_security/public/assets/open_distro_for_elasticsearch_logo_h.svg`
 
+#### Install Filebeat
 Use a filebeat version 6.7.2 or 6.7.1 to log to logstash. On Ubuntu:
 ```
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
@@ -35,7 +37,8 @@ Customize Filebeat and start service:
 vi /etc/filebeat/filebeat.yml
 systemctl start filebeat
 ```
-
+#### Setup SSH Tunnel from Filebeat to Logstash server
 If you have a remote server, then use a SSH tunnel to connect back to the Logstash container. This assumes you have created a user called `filebeat` on the server with the Logstash container:
 - Copy your id to the Logstash server: `ssh-copy-id filebeat@<your-logstash-container-host>`
 - From the remote host (server running filebeat): `ssh -L 5044:127.0.0.1:5044 filebeat@<your-logstash-container-host> -p 22 &`
+- Now configure filebeat to log to localhost:5044

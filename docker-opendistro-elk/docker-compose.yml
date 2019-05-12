@@ -1,0 +1,70 @@
+version: '3'
+services:
+  hammerheim-esn1:
+    image: amazon/opendistro-for-elasticsearch:0.9.0
+    container_name: hammerheim-esn1
+    environment:
+      - cluster.name=hammerheim-cluster
+      - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - hammerheim-data-esn1:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9600:9600 # required for Performance Analyzer
+    networks:
+      - hammerheim-elastic-net
+  hammerheim-esn2:
+    image: amazon/opendistro-for-elasticsearch:0.9.0
+    container_name: hammerheim-esn2
+    environment:
+      - cluster.name=hammerheim-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.zen.ping.unicast.hosts=hammerheim-esn1
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - hammerheim-data-esn2:/usr/share/elasticsearch/data
+    networks:
+      - hammerheim-elastic-net
+  hammerheim-kbn:
+    image: amazon/opendistro-for-elasticsearch-kibana:0.9.0
+    container_name: hammerheim-kibana
+    ports:
+      - 5601:5601
+    expose:
+      - "5601"
+    environment:
+      ELASTICSEARCH_URL: https://hammerheim-esn1:9200
+      ELASTICSEARCH_HOSTS: https://hammerheim-esn1:9200
+    networks:
+      - hammerheim-elastic-net
+  hammerheim-lgs:
+    image: logstash:6.7.1
+    container_name: hammerheim-logstash
+    environment:
+      - "xpack.monitoring.enabled=false"
+    volumes:
+      - /root/docker-opendistro/assets/logstash/pipeline/:/usr/share/logstash/pipeline/
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - 5044:5044
+    networks:
+      - hammerheim-elastic-net
+
+volumes:
+  hammerheim-data-esn1:
+  hammerheim-data-esn2:
+
+networks:
+  hammerheim-elastic-net:

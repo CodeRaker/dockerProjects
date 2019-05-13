@@ -40,4 +40,4 @@ systemctl start filebeat
 
 #### Setup Logstash authentication with Filebeat
 Follow this link: [Logstash Authentication and Encryption with Filebeat](https://benjaminknofe.com/blog/2018/07/08/logstash-authentication-with-ssl-certificates/)
-Take note of one thing. In the guide that author tells to, set mode "force-peer" in the input file for Logstash. This does not work. It must be "peer" instead.
+Take note of one thing. In the guide the author tells to, set mode "force-peer" in the input file for Logstash. This does not work. It must be "peer" instead.

@@ -19,8 +19,9 @@ This project uses docker compose to create 4 containers; two elasticsearch nodes
 
 #### Install containers
 1. Clone the directory
-2. Start with `docker-compose up -d`
-3. To change the Open Distro login graphics, use the sample Hugin logo, or create your own and upload: `docker cp assets/open_distro_for_elasticsearch_logo_h.svg <container-id>:/usr/share/kibana/plugins/opendistro_security/public/assets/open_distro_for_elasticsearch_logo_h.svg`
+2. Customize the `docker-compose.yml` file and change the "hammerheim" names, to your own.
+3. Start with `docker-compose up -d`
+4. To change the Open Distro login graphics, use the sample Hugin logo, or create your own and upload: `docker cp assets/open_distro_for_elasticsearch_logo_h.svg <container-id>:/usr/share/kibana/plugins/opendistro_security/public/assets/open_distro_for_elasticsearch_logo_h.svg`
 
 #### Install Filebeat
 Use a filebeat version 6.7.2 or 6.7.1 to log to logstash. On Ubuntu:

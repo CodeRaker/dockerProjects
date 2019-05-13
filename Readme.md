@@ -32,7 +32,7 @@ apt-get update
 apt install filebeat
 ```
 
-Customize Filebeat and start service:
+Customize Filebeat and start service - or wait - and setup encryption/authentication first (next step):
 ```
 vi /etc/filebeat/filebeat.yml
 systemctl start filebeat

@@ -45,3 +45,4 @@ If you have a remote server, then use a SSH tunnel to connect back to the Logsta
 
 #### Setup Logstash authentication with Filebeat
 https://benjaminknofe.com/blog/2018/07/08/logstash-authentication-with-ssl-certificates/
+Take note of one thing. In the guide that author tells to, set mode "force-peer" in the input file for Logstash. This does not work. It must be "peer" instead.
